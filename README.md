@@ -103,10 +103,23 @@ ros2 launch moveit_setup_assistant setup_assistant.launch.py
     - 点击**Generate Package**，进度条显示100%即完整整个config的配置
     - 点击**Exit Setup Assistant**退出gui
 
-3. 修改配置文件
-- 按照步骤2生成的*moveit_config，在rviz2中做planning的时候会报错：
-原因就是在config/joint_limits.yaml中没有设置加速度约束, 添加加速度约束即可
+### 修改配置文件
+1. 修改**config/joint_limits.yaml**
+- 如果报错信息如下, 是参数的数据类型错误(bug)，将*100*修改为*100.0*：
+![error msg1](./pic/err_msg_int.png)
+修改示例：
+![fix error msg1](./pic/fix_err_int.png)
 
+- 如果报错信息如下, 是规划算法需要加速度约束：
+![error msg2](./pic/err_msg_acc.png)
+将所有joint的*has_acceleration_limits*设置为*true*，*max_acceleration*设置为*5.0*：
+![fix error msg2](./pic/fix_err_acc.png)
+
+2. 修改**config/moveit_controllers.yaml**
+- 如果提示如下信息，是配置文件缺少控制机械臂关节的controller:
+![error msg3](./pic/err_msg_control.png)
+修改示例：
+![fix error msg3](./pic/fix_err_control.png)
 
 ### 参考
 - moveit setup assistant官方教程：[MoveIt Setup Assistant](https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html)

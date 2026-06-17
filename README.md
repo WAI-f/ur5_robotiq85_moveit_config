@@ -121,5 +121,24 @@ ros2 launch moveit_setup_assistant setup_assistant.launch.py
 修改示例：
 ![fix error msg3](./pic/fix_err_control.png)
 
+### 与isaac-sim配合使用
+1. 安装topic_based_ros2_control
+```
+git clone git@github.com:PickNikRobotics/topic_based_ros2_control.git
+cd topic_based_ros2_control
+colcon build
+source install/setup.bash
+```
+
+2. 修改ur5_robotiq_85.ros2_control.xacro
+```
+<!-- <plugin>mock_components/GenericSystem</plugin> -->
+<plugin>topic_based_ros2_control/TopicBasedSystem</plugin>
+<param name="joint_commands_topic">/isaac_joint_commands</param>
+<param name="joint_states_topic">/isaac_joint_states</param>
+```
+- 修改完成后，重新编译当前package
+
 ### 参考
-- moveit setup assistant官方教程：[MoveIt Setup Assistant](https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html)
+- Moveit setup assistant官方教程: [MoveIt Setup Assistant](https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html)
+- MoveIt and Isaac sim integration: [How To Command Simulated Isaac Robot](https://moveit.picknik.ai/main/doc/how_to_guides/isaac_panda/isaac_panda_tutorial.html)

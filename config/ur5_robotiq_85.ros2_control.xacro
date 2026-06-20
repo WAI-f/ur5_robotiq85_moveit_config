@@ -1,15 +1,18 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:macro name="ur5_robotiq_85_ros2_control" params="name initial_positions_file">
+    <xacro:macro name="ur5_robotiq_85_ros2_control" params="name initial_positions_file ros2_control_hardware_type:=mock joint_commands_topic:=/isaac_joint_commands joint_states_topic:=/isaac_joint_states">
         <xacro:property name="initial_positions" value="${xacro.load_yaml(initial_positions_file)['initial_positions']}"/>
 
         <ros2_control name="${name}" type="system">
             <hardware>
-                <!-- By default, set up controllers for simulation. This won't work on real hardware -->
-                <plugin>mock_components/GenericSystem</plugin>
-                <!-- <plugin>topic_based_ros2_control/TopicBasedSystem</plugin>
-                <param name="joint_commands_topic">/isaac_joint_commands</param>
-                <param name="joint_states_topic">/isaac_joint_states</param> -->
+                <xacro:if value="${ros2_control_hardware_type == 'isaac'}">
+                    <plugin>topic_based_ros2_control/TopicBasedSystem</plugin>
+                    <param name="joint_commands_topic">${joint_commands_topic}</param>
+                    <param name="joint_states_topic">${joint_states_topic}</param>
+                </xacro:if>
+                <xacro:unless value="${ros2_control_hardware_type == 'isaac'}">
+                    <plugin>mock_components/GenericSystem</plugin>
+                </xacro:unless>
             </hardware>
             <joint name="shoulder_pan_joint">
                 <command_interface name="position"/>

@@ -1,0 +1,14 @@
+octomap_frame: base_link
+octomap_resolution: 0.02
+max_range: 5.0
+sensors:
+  - default_sensor
+default_sensor:
+  sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
+  point_cloud_topic: /depth/color/points
+  max_range: 5.0
+  max_update_rate: 1.0
+  padding_offset: 0.05
+  padding_scale: 1.0
+  point_subsample: 4
+  filtered_cloud_topic: /filtered_points

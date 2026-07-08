@@ -1,11 +1,11 @@
-octomap_frame: world
+octomap_frame: base_link
 octomap_resolution: 0.02
 max_range: 5.0
 sensors:
   - default_sensor
 default_sensor:
   sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
-  point_cloud_topic: /grasp/background_cloud
+  point_cloud_topic: /pick_place/octomap_cloud
   max_range: 5.0
   max_update_rate: 1.0
   padding_offset: 0.05

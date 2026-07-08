@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ur5_robotiq_85">
     <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+    <xacro:arg name="ros2_control_hardware_type" default="mock" />
+    <xacro:arg name="joint_commands_topic" default="/isaac_joint_commands" />
+    <xacro:arg name="joint_states_topic" default="/isaac_joint_states" />
 
     <!-- Import ur5_robotiq_85 urdf file -->
     <xacro:include filename="$(find ur5_robotiq_85_description)/urdf/ur5_robotiq_85.urdf.xacro" />
@@ -9,6 +12,12 @@
     <xacro:include filename="ur5_robotiq_85.ros2_control.xacro" />
 
 
-    <xacro:ur5_robotiq_85_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+    <xacro:ur5_robotiq_85_ros2_control
+        name="System"
+        initial_positions_file="$(arg initial_positions_file)"
+        ros2_control_hardware_type="$(arg ros2_control_hardware_type)"
+        joint_commands_topic="$(arg joint_commands_topic)"
+        joint_states_topic="$(arg joint_states_topic)"
+    />
 
 </robot>

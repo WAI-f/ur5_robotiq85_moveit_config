@@ -28,15 +28,24 @@ git@github.com:WAI-f/ur5_robotiq85_moveit_config.git
 ```
 4. 编译代码
 ```
-cd ur_robotiq_realsense_moveit_config
+cd ur5_robotiq85_moveit_config
 colcon build
 source install/setup.bash
 ```
 
 ### 可视化
-1. 启动rviz
+1. 启动rviz(不与isaac sim一起使用)
 ```
-ros2 launch ur_robotiq_realsense_moveit_config demo.launch.py
+ros2 launch ur5_robotiq85_moveit_config demo.launch.py
+```
+
+2. 启动rviz(与isaac sim一起使用)
+```  
+ros2 launch ur5_robotiq85_moveit_config demo.launch.py \
+    use_sim_time:=true \
+    ros2_control_hardware_type:=isaac \
+    joint_commands_topic:=/isaac_joint_commands \
+    joint_states_topic:=/isaac_joint_states
 ```
 
 
@@ -122,22 +131,8 @@ ros2 launch moveit_setup_assistant setup_assistant.launch.py
 ![fix error msg3](./pic/fix_err_control.png)
 
 ### 与isaac-sim配合使用
-1. 安装topic_based_ros2_control
-```
-git clone git@github.com:PickNikRobotics/topic_based_ros2_control.git
-cd topic_based_ros2_control
-colcon build
-source install/setup.bash
-```
-
-2. 修改ur5_robotiq_85.ros2_control.xacro
-```
-<!-- <plugin>mock_components/GenericSystem</plugin> -->
-<plugin>topic_based_ros2_control/TopicBasedSystem</plugin>
-<param name="joint_commands_topic">/isaac_joint_commands</param>
-<param name="joint_states_topic">/isaac_joint_states</param>
-```
-- 修改完成后，重新编译当前package
+- topic_based_ros2_control：已在容器中配置
+- 配置ur5_robotiq_85.ros2_control.xacro：已改为参数配置
 
 ### 参考
 - Moveit setup assistant官方教程: [MoveIt Setup Assistant](https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html)

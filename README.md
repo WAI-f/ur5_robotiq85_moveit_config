@@ -20,7 +20,7 @@
 ### 编译
 1. 下载urdf仓库
 ```
-git@github.com:WAI-f/ur5_robotiq85_description.git
+git clone -b v0.0.2 git@github.com:WAI-f/ur5_robotiq85_description.git
 ```
 2. 编译代码
 ```
@@ -30,7 +30,7 @@ source install/setup.bash
 ```
 3. 下载当前仓库代码
 ```
-git@github.com:WAI-f/ur5_robotiq85_moveit_config.git
+git clone -b v0.0.2 git@github.com:WAI-f/ur5_robotiq85_moveit_config.git
 ```
 4. 编译代码
 ```

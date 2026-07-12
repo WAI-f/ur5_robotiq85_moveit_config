@@ -1,5 +1,11 @@
 ## UR5+robotiq2f_85 moveit setup
 
+### update
+1. 增加3d相机配置: sensors_3d.yaml
+2. 支持切换mock和isaacsim control
+3. 修改机械臂初始关节角度
+4. 移除ee_link设置
+
 ### 环境配置
 1. 系统环境配置
 - ubuntu24.04
